@@ -1,0 +1,286 @@
+GUIA DE USO - E-COMMERCE API
+
+=================================
+PASO 1: CONFIGURACION INICIAL
+=================================
+
+1. Instalar dependencias:
+   npm install
+
+2. Verificar MongoDB este corriendo:
+   sudo systemctl status mongod
+
+3. Crear datos de prueba:
+   npm run seed
+
+4. Iniciar servidor:
+   npm start
+
+
+=================================
+PASO 2: IMPORTAR EN POSTMAN
+=================================
+
+1. Abrir Postman
+2. Click en Import
+3. Seleccionar el archivo: Ecommerce_API.postman_collection.json
+4. La coleccion aparecera con 6 carpetas
+
+
+=================================
+PASO 3: OBTENER TOKEN
+=================================
+
+1. Ir a carpeta "Usuarios"
+2. Ejecutar "Login Admin" o "Login Cliente"
+3. Copiar el token de la respuesta
+4. En Postman, ir a la coleccion > Variables
+5. Pegar el token en la variable "token"
+6. Ahora todas las rutas protegidas funcionaran
+
+
+=================================
+CREDENCIALES DE PRUEBA
+=================================
+
+Admin:
+  Email: admin@mail.com
+  Password: admin123
+
+Cliente:
+  Email: juan@mail.com
+  Password: 123456
+
+
+=================================
+FLUJO DE PRUEBA RECOMENDADO
+=================================
+
+A) PRUEBAS BASICAS (SIN TOKEN)
+-------------------------------
+1. Listar Productos
+2. Filtrar Productos
+3. Listar Categorias
+4. Stats Categorias
+5. Listar Resenas
+
+B) PRUEBAS CON TOKEN DE CLIENTE
+--------------------------------
+1. Login Cliente (copiar token)
+2. Ver Carrito
+3. Agregar al Carrito
+4. Calcular Total
+5. Crear Pedido
+6. Pedidos de Usuario
+7. Crear Resena (solo si compro el producto)
+
+C) PRUEBAS CON TOKEN DE ADMIN
+------------------------------
+1. Login Admin (copiar token)
+2. Listar Usuarios
+3. Crear Categoria
+4. Crear Producto
+5. Actualizar Stock
+6. Stats Pedidos
+7. Actualizar Estado de Pedido
+
+
+=================================
+OPERADORES UTILIZADOS
+=================================
+
+COMPARACION:
+- $gte, $lte: en filtros de productos por precio
+- $eq: comparaciones en find
+- $ne: verificaciones de diferencia
+
+MODIFICACION:
+- $set: actualizar stock, estado de pedido
+- $push: agregar productos al carrito
+- $pull: quitar productos del carrito
+
+AGREGACION:
+- $lookup: joins entre colecciones
+- $group: agrupar por categoria, estado, producto
+- $sum: contar totales
+- $avg: promedio de calificaciones
+- $count: contar elementos
+- $sort: ordenar resultados
+- $unwind: descomponer arrays
+- $project: formatear salida
+
+
+=================================
+RUTAS PROTEGIDAS
+=================================
+
+PUBLICAS (sin token):
+- GET /api/productos
+- GET /api/productos/filtro
+- GET /api/productos/top
+- GET /api/categorias
+- GET /api/resenas
+
+REQUIEREN TOKEN (cliente o admin):
+- GET /api/carrito/:usuarioId
+- POST /api/carrito
+- POST /api/ordenes
+- GET /api/ordenes/user/:userId
+- POST /api/resenas
+
+SOLO ADMIN:
+- GET /api/users (listar usuarios)
+- DELETE /api/users/:id
+- POST /api/productos
+- PUT /api/productos/:id
+- PATCH /api/productos/:id/stock
+- DELETE /api/productos/:id
+- POST /api/categorias
+- PUT /api/categorias/:id
+- DELETE /api/categorias/:id
+- GET /api/ordenes/stats
+- PATCH /api/ordenes/:id/status
+
+
+=================================
+COMO USAR CADA CARPETA
+=================================
+
+USUARIOS:
+1. Register: crear nuevo usuario
+2. Login: obtener token
+3. Listar Usuarios: ver todos (admin)
+4. Ver Usuario: detalle de uno
+5. Eliminar Usuario: borra usuario y carrito
+
+PRODUCTOS:
+1. Listar: todos los productos con categoria
+2. Filtrar: por precio y marca
+3. Top: mas resenados
+4. Crear: nuevo producto (admin)
+5. Actualizar: editar producto (admin)
+6. Actualizar Stock: solo el stock (admin)
+7. Eliminar: borrar producto (admin)
+
+CATEGORIAS:
+1. Listar: todas las categorias
+2. Stats: cantidad de productos por categoria
+3. Crear: nueva categoria (admin)
+4. Actualizar: editar categoria (admin)
+5. Eliminar: borrar categoria (admin)
+
+CARRITO:
+1. Ver Carrito: productos en el carrito
+2. Calcular Total: precio total del carrito
+3. Agregar: anadir producto al carrito
+4. Quitar: eliminar producto del carrito
+
+PEDIDOS:
+1. Listar: todos los pedidos con usuario
+2. Stats: total por estado (admin)
+3. Pedidos de Usuario: solo de un cliente
+4. Crear: nuevo pedido
+5. Actualizar Estado: cambiar estado (admin)
+6. Eliminar: borrar pedido (admin)
+
+RESENAS:
+1. Listar: todas con usuario y producto
+2. Resenas de Producto: filtrar por producto
+3. Top: promedio de calificaciones
+4. Crear: nueva resena (valida compra)
+5. Actualizar: editar propia resena
+6. Eliminar: borrar resena
+
+
+=================================
+SOLUCIONAR PROBLEMAS
+=================================
+
+Error: No hay token
+- Hacer login primero
+- Copiar el token
+- Pegar en la variable de coleccion
+
+Error: Token invalido
+- El token expiro (7 dias)
+- Hacer login nuevamente
+
+Error: Acceso denegado
+- Esa ruta necesita rol admin
+- Usar credenciales de admin
+
+Error: Usuario no compro el producto
+- Para crear resena debes tener un pedido con ese producto
+- Crear pedido primero
+
+Error: Carrito no encontrado
+- El carrito se crea automaticamente al agregar primer producto
+- Agregar producto al carrito primero
+
+
+=================================
+DATOS DE PRUEBA INCLUIDOS
+=================================
+
+3 Categorias:
+- Electronica
+- Ropa
+- Hogar
+
+8 Productos:
+- Laptop Dell ($800)
+- Mouse Logitech ($25)
+- Teclado Mecanico ($100)
+- Monitor Samsung ($200)
+- Camisa ($30)
+- Pantalon ($45)
+- Lampara ($35)
+- Silla ($150)
+
+3 Usuarios:
+- Admin
+- Juan Perez (cliente)
+- Maria Garcia (cliente)
+
+
+=================================
+PROBAR EXPIRACION DE TOKEN
+=================================
+
+En archivo .env cambiar:
+JWT_EXPIRES_IN=10s
+
+Reiniciar servidor:
+npm start
+
+Hacer login y esperar 10 segundos
+Intentar usar el token -> error
+
+
+=================================
+COMANDOS UTILES
+=================================
+
+Ver base de datos:
+mongosh
+use ecommerce
+db.productos.find()
+db.usuarios.find()
+
+Limpiar y recrear datos:
+npm run seed
+
+Ver logs del servidor:
+npm start
+
+
+=================================
+NOTAS IMPORTANTES
+=================================
+
+- Guardar IDs al crear recursos
+- Reemplazar ID_DEL_PRODUCTO, etc con IDs reales
+- El token debe ir en header Authorization
+- Formato: Bearer TOKEN
+- Todas las respuestas son JSON
+- Errores tienen formato: {success: false, error: "mensaje"}

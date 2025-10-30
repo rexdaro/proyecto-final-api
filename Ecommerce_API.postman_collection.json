@@ -1,0 +1,922 @@
+{
+	"info": {
+		"name": "E-commerce API",
+		"description": "API REST para e-commerce - Parcial Integrador",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Pedro Lopez\",\n  \"email\": \"pedro@mail.com\",\n  \"password\": \"123456\",\n  \"direccion\": \"Calle 456\",\n  \"telefono\": \"9876543210\",\n  \"rol\": \"cliente\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/users/register",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "users", "register"]
+						}
+					}
+				},
+				{
+					"name": "Login Admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@mail.com\",\n  \"password\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/users/login",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "users", "login"]
+						}
+					}
+				},
+				{
+					"name": "Login Cliente",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"juan@mail.com\",\n  \"password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/users/login",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "users", "login"]
+						}
+					}
+				},
+				{
+					"name": "Listar Usuarios (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/api/users",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "users"]
+						}
+					}
+				},
+				{
+					"name": "Ver Usuario",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/api/users/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "users", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ID_DEL_USUARIO"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Eliminar Usuario (Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/api/users/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "users", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ID_DEL_USUARIO"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Productos",
+			"item": [
+				{
+					"name": "Listar Productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/productos",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "productos"]
+						}
+					}
+				},
+				{
+					"name": "Filtrar Productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/productos/filtro?precioMin=50&precioMax=200&marca=Dell",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "productos", "filtro"],
+							"query": [
+								{
+									"key": "precioMin",
+									"value": "50"
+								},
+								{
+									"key": "precioMax",
+									"value": "200"
+								},
+								{
+									"key": "marca",
+									"value": "Dell"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Top Productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/productos/top",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "productos", "top"]
+						}
+					}
+				},
+				{
+					"name": "Ver Producto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/productos/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "productos", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ID_DEL_PRODUCTO"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Crear Producto (Admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"iPhone 15\",\n  \"descripcion\": \"Smartphone Apple\",\n  \"precio\": 1200,\n  \"stock\": 25,\n  \"marca\": \"Apple\",\n  \"categoria\": \"ID_DE_CATEGORIA\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/productos",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "productos"]
+						}
+					}
+				},
+				{
+					"name": "Actualizar Producto (Admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"iPhone 15 Pro\",\n  \"precio\": 1400,\n  \"stock\": 30\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/productos/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "productos", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ID_DEL_PRODUCTO"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Actualizar Stock (Admin)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"stock\": 50\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/productos/:id/stock",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "productos", ":id", "stock"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ID_DEL_PRODUCTO"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Eliminar Producto (Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/api/productos/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "productos", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ID_DEL_PRODUCTO"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Categorias",
+			"item": [
+				{
+					"name": "Listar Categorias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/categorias",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "categorias"]
+						}
+					}
+				},
+				{
+					"name": "Stats Categorias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/categorias/stats",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "categorias", "stats"]
+						}
+					}
+				},
+				{
+					"name": "Ver Categoria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/categorias/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "categorias", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ID_DE_CATEGORIA"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Crear Categoria (Admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Deportes\",\n  \"descripcion\": \"Articulos deportivos\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/categorias",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "categorias"]
+						}
+					}
+				},
+				{
+					"name": "Actualizar Categoria (Admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Deportes y Fitness\",\n  \"descripcion\": \"Articulos deportivos y gimnasio\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/categorias/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "categorias", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ID_DE_CATEGORIA"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Eliminar Categoria (Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/api/categorias/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "categorias", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ID_DE_CATEGORIA"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Carrito",
+			"item": [
+				{
+					"name": "Ver Carrito",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/api/carrito/:usuarioId",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "carrito", ":usuarioId"],
+							"variable": [
+								{
+									"key": "usuarioId",
+									"value": "ID_DEL_USUARIO"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Calcular Total",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/api/carrito/:usuarioId/total",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "carrito", ":usuarioId", "total"],
+							"variable": [
+								{
+									"key": "usuarioId",
+									"value": "ID_DEL_USUARIO"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Agregar al Carrito",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"usuario\": \"ID_DEL_USUARIO\",\n  \"producto\": \"ID_DEL_PRODUCTO\",\n  \"cantidad\": 2\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/carrito",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "carrito"]
+						}
+					}
+				},
+				{
+					"name": "Quitar del Carrito",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/api/carrito/:usuarioId/producto/:productoId",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "carrito", ":usuarioId", "producto", ":productoId"],
+							"variable": [
+								{
+									"key": "usuarioId",
+									"value": "ID_DEL_USUARIO"
+								},
+								{
+									"key": "productoId",
+									"value": "ID_DEL_PRODUCTO"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Pedidos",
+			"item": [
+				{
+					"name": "Listar Pedidos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/api/ordenes",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "ordenes"]
+						}
+					}
+				},
+				{
+					"name": "Stats Pedidos (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/api/ordenes/stats",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "ordenes", "stats"]
+						}
+					}
+				},
+				{
+					"name": "Pedidos de Usuario",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/api/ordenes/user/:userId",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "ordenes", "user", ":userId"],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "ID_DEL_USUARIO"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Ver Pedido",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/api/ordenes/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "ordenes", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ID_DEL_PEDIDO"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Crear Pedido",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"items\": [\n    {\n      \"producto\": \"ID_DEL_PRODUCTO\",\n      \"cantidad\": 2,\n      \"subtotal\": 200\n    }\n  ],\n  \"total\": 200,\n  \"metodoPago\": \"tarjeta\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/ordenes",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "ordenes"]
+						}
+					}
+				},
+				{
+					"name": "Actualizar Estado (Admin)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"estado\": \"enviado\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/ordenes/:id/status",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "ordenes", ":id", "status"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ID_DEL_PEDIDO"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Eliminar Pedido (Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/api/ordenes/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "ordenes", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ID_DEL_PEDIDO"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Resenas",
+			"item": [
+				{
+					"name": "Listar Resenas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/resenas",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "resenas"]
+						}
+					}
+				},
+				{
+					"name": "Resenas de Producto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/resenas/product/:productId",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "resenas", "product", ":productId"],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "ID_DEL_PRODUCTO"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Top Resenas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/resenas/top",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "resenas", "top"]
+						}
+					}
+				},
+				{
+					"name": "Crear Resena",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"producto\": \"ID_DEL_PRODUCTO\",\n  \"calificacion\": 5,\n  \"comentario\": \"Excelente producto\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/resenas",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "resenas"]
+						}
+					}
+				},
+				{
+					"name": "Actualizar Resena",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"calificacion\": 4,\n  \"comentario\": \"Buen producto\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/resenas/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "resenas", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ID_DE_RESENA"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Eliminar Resena",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/api/resenas/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3001",
+							"path": ["api", "resenas", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ID_DE_RESENA"
+								}
+							]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "TU_TOKEN_AQUI"
+		}
+	]
+}
